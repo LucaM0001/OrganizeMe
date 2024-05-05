@@ -17,6 +17,8 @@ const Tasks = (props) => {
     },
   ]);
 
+  const [filter, setFilter] = useState("all");
+
   const handleRemoveTask = (deleteId) => {
     const newTasks = [...tasks].filter((task) => task.id !== deleteId);
     if (confirm("Delete this task ?")) setTasks(newTasks);
@@ -34,7 +36,21 @@ const Tasks = (props) => {
   };
 
   const handleShowTask = () => {
-    let tasksArray = [...tasks];
+    let tasksArray = [];
+
+    switch (filter) {
+      case "all":
+        tasksArray = [...tasks];
+        break;
+      case "done":
+        tasksArray = [...tasks].filter((task) => task.isCompleted);
+        break;
+      case "todo":
+        tasksArray = [...tasks].filter((task) => !task.isCompleted);
+        break;
+      default:
+        null;
+    }
 
     return tasksArray.map((task) => (
       <li key={task.id} className="list-group-item">
@@ -64,13 +80,22 @@ const Tasks = (props) => {
       </h1>
       <AddForm addTask={handleAddTask} />
       <div className="btn-group mb-3" id="filters">
-        <button className="btn btn-outline-primary">
+        <button
+          className="btn btn-outline-primary"
+          onClick={() => setFilter("all")}
+        >
           <List size={22} />
         </button>
-        <button className="btn btn-outline-primary">
+        <button
+          className="btn btn-outline-primary"
+          onClick={() => setFilter("done")}
+        >
           <ListCheck size={22} />
         </button>
-        <button className="btn btn-outline-primary">
+        <button
+          className="btn btn-outline-primary"
+          onClick={() => setFilter("todo")}
+        >
           <ListTask size={22} />
         </button>
       </div>

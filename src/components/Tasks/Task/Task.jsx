@@ -2,7 +2,6 @@ import { useState } from "react";
 import { PenFill, TrashFill } from "react-bootstrap-icons";
 
 const Task = ({ id, name, isCompleted, removeTask, changeIsCompleted }) => {
-  const [isChecked, setIsChecked] = useState(isCompleted);
   return (
     <>
       <div>
