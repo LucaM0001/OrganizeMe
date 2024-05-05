@@ -22,12 +22,27 @@ const Tasks = (props) => {
     if (confirm("Delete this task ?")) setTasks(newTasks);
   };
 
+  const handleChangeIsCompleted = (taskId) => {
+    const newUser = [...tasks].find((task) => task.id === taskId);
+    newUser.isCompleted = !newUser.isCompleted;
+    const index = [...tasks].findIndex((task) => task.id === taskId);
+
+    const newUsers = [...tasks];
+    newUsers[index] = newUser;
+
+    setTasks(newUsers);
+  };
+
   const handleShowTask = () => {
     let tasksArray = [...tasks];
 
     return tasksArray.map((task) => (
       <li key={task.id} className="list-group-item">
-        <Task {...task} removeTask={handleRemoveTask} />
+        <Task
+          {...task}
+          removeTask={handleRemoveTask}
+          changeIsCompleted={handleChangeIsCompleted}
+        />
       </li>
     ));
   };

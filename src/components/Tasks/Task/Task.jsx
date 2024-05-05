@@ -1,10 +1,17 @@
+import { useState } from "react";
 import { PenFill, TrashFill } from "react-bootstrap-icons";
 
-const Task = ({ id, name, isCompleted, removeTask }) => {
+const Task = ({ id, name, isCompleted, removeTask, changeIsCompleted }) => {
+  const [isChecked, setIsChecked] = useState(isCompleted);
   return (
     <>
       <div>
-        <input type="checkbox" className="form-check-input" />
+        <input
+          checked={isCompleted}
+          type="checkbox"
+          className="form-check-input"
+          onChange={() => changeIsCompleted(id)}
+        />
         <span className="ms-3">{name}</span>
       </div>
       <div>
