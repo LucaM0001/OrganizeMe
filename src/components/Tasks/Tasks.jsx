@@ -27,12 +27,22 @@ const Tasks = (props) => {
     ));
   };
 
+  const handleAddTask = (taskName) => {
+    const newTask = {
+      id: Date.now(),
+      name: taskName,
+      isCompleted: false,
+    };
+
+    setTasks((oldTasks) => [...oldTasks, newTask]);
+  };
+
   return (
     <div id="tasks">
       <h1 className="text-center text-primary" id="title">
         To~Do~List App
       </h1>
-      <AddForm />
+      <AddForm addTask={handleAddTask} />
       <div className="btn-group mb-3" id="filters">
         <button className="btn btn-outline-primary">
           <List size={22} />
