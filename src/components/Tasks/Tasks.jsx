@@ -1,21 +1,11 @@
-import { List, ListCheck, ListTask } from "react-bootstrap-icons";
+import { Flag, List, ListCheck, ListTask } from "react-bootstrap-icons";
 import AddForm from "./AddForm/AddForm";
 import Task from "./Task/Task";
-import { useState } from "react";
+import { Fragment, useState } from "react";
+import UpdateForm from "./UpdateForm/UpdateForm";
 
 const Tasks = (props) => {
-  const [tasks, setTasks] = useState([
-    {
-      id: Date.now(),
-      name: "Task1",
-      isCompleted: false,
-    },
-    {
-      id: Date.now() * 2,
-      name: "Task2",
-      isCompleted: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
 
   const [filter, setFilter] = useState("all");
 
@@ -25,17 +15,45 @@ const Tasks = (props) => {
   };
 
   const handleChangeIsCompleted = (taskId) => {
-    const newUser = [...tasks].find((task) => task.id === taskId);
-    newUser.isCompleted = !newUser.isCompleted;
+    const newTask = [...tasks].find((task) => task.id === taskId);
+    newTask.isCompleted = !newTask.isCompleted;
     const index = [...tasks].findIndex((task) => task.id === taskId);
 
-    const newUsers = [...tasks];
-    newUsers[index] = newUser;
+    const newTasks = [...tasks];
+    newTasks[index] = newTask;
 
-    setTasks(newUsers);
+    setTasks(newTasks);
+  };
+
+  const handleShowUpdateForm = (taskId) => {
+    const newTask = [...tasks].find((task) => task.id === taskId);
+    newTask.isUpdated = !newTask.isUpdated;
+
+    const index = [...tasks].findIndex((task) => task.id === taskId);
+
+    const newTasks = [...tasks];
+    newTasks[index] = newTask;
+
+    setTasks(newTasks);
+  };
+
+  const handleUpdateTask = (newName, taskId) => {
+    const newTask = [...tasks].find((task) => task.id === taskId);
+    newTask.name = newName;
+    newTask.isUpdated = false;
+
+    const index = [...tasks].findIndex((task) => task.id === taskId);
+
+    const newTasks = [...tasks];
+    newTasks[index] = newTask;
+
+    setTasks(newTasks);
   };
 
   const handleShowTask = () => {
+    if (tasks.length === 0)
+      return <div className="alert alert-info">No tasks yet !!!</div>;
+
     let tasksArray = [];
 
     switch (filter) {
@@ -53,13 +71,21 @@ const Tasks = (props) => {
     }
 
     return tasksArray.map((task) => (
-      <li key={task.id} className="list-group-item">
-        <Task
-          {...task}
-          removeTask={handleRemoveTask}
-          changeIsCompleted={handleChangeIsCompleted}
-        />
-      </li>
+      <Fragment key={task.id}>
+        <li className="list-group-item">
+          <Task
+            {...task}
+            removeTask={handleRemoveTask}
+            changeIsCompleted={handleChangeIsCompleted}
+            showUpdateForm={handleShowUpdateForm}
+          />
+        </li>
+        {task.isUpdated && (
+          <li className="list-group-item">
+            <UpdateForm {...task} updateTask={handleUpdateTask} />
+          </li>
+        )}
+      </Fragment>
     ));
   };
 
@@ -68,6 +94,7 @@ const Tasks = (props) => {
       id: Date.now(),
       name: taskName,
       isCompleted: false,
+      isUpdated: false,
     };
 
     setTasks((oldTasks) => [...oldTasks, newTask]);

@@ -1,7 +1,14 @@
-import { useState } from "react";
-import { PenFill, TrashFill } from "react-bootstrap-icons";
+import { PenFill, TrashFill, XCircleFill } from "react-bootstrap-icons";
 
-const Task = ({ id, name, isCompleted, removeTask, changeIsCompleted }) => {
+const Task = ({
+  id,
+  name,
+  isCompleted,
+  isUpdated,
+  removeTask,
+  changeIsCompleted,
+  showUpdateForm,
+}) => {
   return (
     <>
       <div>
@@ -15,10 +22,14 @@ const Task = ({ id, name, isCompleted, removeTask, changeIsCompleted }) => {
       </div>
       <div>
         <button className="btn btn-danger me-2" onClick={() => removeTask(id)}>
-          <TrashFill />
+          <TrashFill size={22} />
         </button>
-        <button className="btn btn-warning" onClick={() => console.log(id)}>
-          <PenFill color="white" />
+        <button className="btn btn-warning" onClick={() => showUpdateForm(id)}>
+          {isUpdated ? (
+            <XCircleFill size={22} color="white" />
+          ) : (
+            <PenFill size={22} color="white" />
+          )}
         </button>
       </div>
     </>

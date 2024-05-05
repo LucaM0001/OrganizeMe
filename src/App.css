@@ -10,7 +10,8 @@
   align-items: center;
 }
 
-#addForm {
+#addForm,
+.updateForm {
   display: flex;
   justify-content: space-between;
 }

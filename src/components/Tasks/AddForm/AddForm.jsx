@@ -17,25 +17,19 @@ const AddForm = ({ addTask }) => {
   };
 
   return (
-    <>
-      <form id="addForm" className="mb-3" onSubmit={handleSubmit(onSub)}>
-        <input
-          {...register("taskName", {
-            required: true,
-          })}
-          type="text"
-          className="form-control me-3"
-          placeholder="new task..."
-        />
-        <button
-          disabled={isSubmitting}
-          type="submit"
-          className="btn btn-primary"
-        >
-          {isSubmitting ? <PlusCircleDotted size={26} /> : <Plus size={26} />}
-        </button>
-      </form>
-    </>
+    <form id="addForm" className="mb-3" onSubmit={handleSubmit(onSub)}>
+      <input
+        {...register("taskName", {
+          required: true,
+        })}
+        type="text"
+        className="form-control me-3"
+        placeholder="new task..."
+      />
+      <button disabled={isSubmitting} type="submit" className="btn btn-primary">
+        {isSubmitting ? <PlusCircleDotted size={22} /> : <Plus size={22} />}
+      </button>
+    </form>
   );
 };
 
