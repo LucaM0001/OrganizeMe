@@ -1,6 +1,6 @@
 import { PenFill, TrashFill } from "react-bootstrap-icons";
 
-const Task = ({ id, name, isCompleted }) => {
+const Task = ({ id, name, isCompleted, removeTask }) => {
   return (
     <>
       <div>
@@ -8,7 +8,7 @@ const Task = ({ id, name, isCompleted }) => {
         <span className="ms-3">{name}</span>
       </div>
       <div>
-        <button className="btn btn-danger me-2" onClick={() => console.log(id)}>
+        <button className="btn btn-danger me-2" onClick={() => removeTask(id)}>
           <TrashFill />
         </button>
         <button className="btn btn-warning" onClick={() => console.log(id)}>

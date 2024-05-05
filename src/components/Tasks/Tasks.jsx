@@ -17,12 +17,17 @@ const Tasks = (props) => {
     },
   ]);
 
+  const handleRemoveTask = (deleteId) => {
+    const newTasks = [...tasks].filter((task) => task.id !== deleteId);
+    if (confirm("Delete this task ?")) setTasks(newTasks);
+  };
+
   const handleShowTask = () => {
     let tasksArray = [...tasks];
 
     return tasksArray.map((task) => (
       <li key={task.id} className="list-group-item">
-        <Task {...task} />
+        <Task {...task} removeTask={handleRemoveTask} />
       </li>
     ));
   };
