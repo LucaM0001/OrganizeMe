@@ -18,7 +18,7 @@ const Task = ({
           className="form-check-input"
           onChange={() => changeIsCompleted(id)}
         />
-        <span className="ms-3">{name}</span>
+        <span className="mx-3">{name}</span>
       </div>
       <div>
         <button className="btn btn-danger me-2" onClick={() => removeTask(id)}>
