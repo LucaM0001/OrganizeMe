@@ -1,7 +1,10 @@
+import { useRef } from "react";
 import { Plus, PlusCircleDotted } from "react-bootstrap-icons";
 import { useForm } from "react-hook-form";
 
 const AddForm = ({ addTask }) => {
+  const addForm = useRef();
+
   const {
     register,
     handleSubmit,
@@ -14,10 +17,17 @@ const AddForm = ({ addTask }) => {
     });
 
     addTask(data.taskName);
+    console.log(addForm.current.reset());
   };
 
   return (
-    <form id="addForm" className="mb-3" onSubmit={handleSubmit(onSub)}>
+    <form
+      autoComplete="off"
+      ref={addForm}
+      id="addForm"
+      className="mb-3"
+      onSubmit={handleSubmit(onSub)}
+    >
       <input
         {...register("taskName", {
           required: true,

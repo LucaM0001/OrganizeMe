@@ -20,7 +20,11 @@ const UpdateForm = ({ id, name, updateTask }) => {
     updateTask(data.newTaskName, id);
   };
   return (
-    <form className="updateForm" onSubmit={handleSubmit(onSub)}>
+    <form
+      autoComplete="off"
+      className="updateForm"
+      onSubmit={handleSubmit(onSub)}
+    >
       <input
         {...register("newTaskName", { required: true })}
         type="text"
