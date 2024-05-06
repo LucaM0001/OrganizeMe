@@ -1,13 +1,21 @@
 import { Flag, List, ListCheck, ListTask } from "react-bootstrap-icons";
 import AddForm from "./AddForm/AddForm";
 import Task from "./Task/Task";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import UpdateForm from "./UpdateForm/UpdateForm";
+import { getLocalStorage, setLocalStorage } from "../../lib/storage";
 
 const Tasks = (props) => {
-  const [tasks, setTasks] = useState([]);
+  const { tasksInStorage } = getLocalStorage();
+  const { filterInStorage } = getLocalStorage();
 
-  const [filter, setFilter] = useState("all");
+  const [tasks, setTasks] = useState(tasksInStorage);
+
+  const [filter, setFilter] = useState(filterInStorage);
+
+  useEffect(() => {
+    setLocalStorage(tasks, filter);
+  }, [tasks, filter]);
 
   const handleRemoveTask = (deleteId) => {
     const newTasks = [...tasks].filter((task) => task.id !== deleteId);
