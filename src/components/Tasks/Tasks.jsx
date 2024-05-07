@@ -4,6 +4,7 @@ import Task from "./Task/Task";
 import { Fragment, useEffect, useState } from "react";
 import UpdateForm from "./UpdateForm/UpdateForm";
 import { getLocalStorage, setLocalStorage } from "../../lib/storage";
+import { notification } from "../../lib/notifcation";
 
 const Tasks = (props) => {
   const { tasksInStorage } = getLocalStorage();
@@ -19,7 +20,10 @@ const Tasks = (props) => {
 
   const handleRemoveTask = (deleteId) => {
     const newTasks = [...tasks].filter((task) => task.id !== deleteId);
-    if (confirm("Delete this task ?")) setTasks(newTasks);
+    if (confirm("Delete this task ?")) {
+      setTasks(newTasks);
+      notification("info", "The task has been deleted");
+    }
   };
 
   const handleChangeIsCompleted = (taskId) => {
@@ -56,6 +60,7 @@ const Tasks = (props) => {
     newTasks[index] = newTask;
 
     setTasks(newTasks);
+    notification("info", "The task has been updated");
   };
 
   const handleShowTask = () => {
@@ -113,6 +118,7 @@ const Tasks = (props) => {
     };
 
     setTasks((oldTasks) => [...oldTasks, newTask]);
+    notification("success", "New task created successfuly !");
   };
 
   return (
@@ -121,7 +127,7 @@ const Tasks = (props) => {
         To~Do~List App
       </h1>
       <AddForm addTask={handleAddTask} />
-      <div className="btn-group mb-3" id="filters">
+      <div className="btn-group my-3" id="filters">
         <button
           className="btn btn-outline-primary"
           onClick={() => setFilter("all")}
@@ -141,7 +147,9 @@ const Tasks = (props) => {
           <ListTask size={22} />
         </button>
       </div>
-      <ul className="list-group">{handleShowTask()}</ul>
+      <ul className="list-group" id="tasks-list">
+        {handleShowTask()}
+      </ul>
     </div>
   );
 };

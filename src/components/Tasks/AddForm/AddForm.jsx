@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { Plus, PlusCircleDotted } from "react-bootstrap-icons";
 import { useForm } from "react-hook-form";
+import { notification } from "../../../lib/notifcation";
 
 const AddForm = ({ addTask }) => {
   const addForm = useRef();
@@ -17,42 +18,46 @@ const AddForm = ({ addTask }) => {
     });
 
     addTask(data.taskName);
-    console.log(addForm.current.reset());
+    addForm.current.reset();
   };
 
   return (
-    <form
-      autoComplete="off"
-      ref={addForm}
-      id="addForm"
-      className="mb-3"
-      onSubmit={handleSubmit(onSub)}
-    >
-      <input
-        {...register("taskName", {
-          required: true,
-        })}
-        type="text"
-        className="form-control me-3"
-        placeholder="new task..."
-      />
+    <>
+      <form
+        autoComplete="off"
+        ref={addForm}
+        id="addForm"
+        onSubmit={handleSubmit(onSub)}
+      >
+        <input
+          {...register("taskName", {
+            required: "Task is required",
+          })}
+          type="text"
+          className="form-control me-3"
+          placeholder="new task..."
+        />
 
-      <div>
-        {isSubmitting ? (
-          <div className="spinner-border text-primary fs-2" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        ) : (
-          <button
-            disabled={isSubmitting}
-            type="submit"
-            className="btn btn-primary"
-          >
-            <Plus size={22} />
-          </button>
-        )}
-      </div>
-    </form>
+        <div>
+          {isSubmitting ? (
+            <div className="spinner-border text-primary fs-2" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          ) : (
+            <button
+              disabled={isSubmitting}
+              type="submit"
+              className="btn btn-primary"
+            >
+              <Plus size={22} />
+            </button>
+          )}
+        </div>
+      </form>
+      {errors.taskName && (
+        <div className="text-warning fw-bold">{errors.taskName.message}</div>
+      )}
+    </>
   );
 };
 
