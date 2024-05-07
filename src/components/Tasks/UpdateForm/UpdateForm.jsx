@@ -30,13 +30,18 @@ const UpdateForm = ({ id, name, updateTask }) => {
         type="text"
         className="form-control me-3"
       />
-      <button disabled={isSubmitting} type="submit" className="btn btn-success">
+
+      <div>
         {isSubmitting ? (
-          <CheckCircle size={22} />
+          <div className="spinner-border text-success fs-2" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
         ) : (
-          <CheckCircleFill size={22} />
+          <button type="submit" className="btn btn-success">
+            <CheckCircleFill size={22} />
+          </button>
         )}
-      </button>
+      </div>
     </form>
   );
 };

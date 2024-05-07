@@ -60,7 +60,14 @@ const Tasks = (props) => {
 
   const handleShowTask = () => {
     if (tasks.length === 0)
-      return <div className="alert alert-info">No tasks yet !!!</div>;
+      return (
+        <div className="alert alert-info" id="alert">
+          <div>No tasks yet !!!</div>
+          <div className="spinner-border text-info fs-2" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      );
 
     let tasksArray = [];
 

@@ -36,9 +36,22 @@ const AddForm = ({ addTask }) => {
         className="form-control me-3"
         placeholder="new task..."
       />
-      <button disabled={isSubmitting} type="submit" className="btn btn-primary">
-        {isSubmitting ? <PlusCircleDotted size={22} /> : <Plus size={22} />}
-      </button>
+
+      <div>
+        {isSubmitting ? (
+          <div className="spinner-border text-primary fs-2" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        ) : (
+          <button
+            disabled={isSubmitting}
+            type="submit"
+            className="btn btn-primary"
+          >
+            <Plus size={22} />
+          </button>
+        )}
+      </div>
     </form>
   );
 };
