@@ -124,7 +124,7 @@ const Tasks = (props) => {
   return (
     <div id="tasks">
       <h1 className="text-center text-primary" id="title">
-        To~Do~List App
+        OrganizeMe
       </h1>
       <AddForm addTask={handleAddTask} />
       <div className="btn-group my-3" id="filters">
