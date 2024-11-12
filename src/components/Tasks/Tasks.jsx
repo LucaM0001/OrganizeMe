@@ -11,11 +11,11 @@ const Tasks = (props) => {
   const [filter, setFilter] = useState("all");
 
   useEffect(() => {
-    const { tasksInStorage } = getLocalStorage();
-    const { filterInStorage } = getLocalStorage();
+    const { tasksInStorage, filterInStorage } = getLocalStorage();
 
     if (tasksInStorage && filterInStorage) 
-      setLocalStorage(tasksInStorage, filterInStorage)
+      setTasks(tasksInStorage)
+      setFilter(filterInStorage)
     else
       setLocalStorage(tasks, filter);
   }, [tasks, filter]);
