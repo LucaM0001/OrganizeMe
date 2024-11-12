@@ -1,4 +1,5 @@
-import { PenFill, TrashFill, XCircleFill } from "react-bootstrap-icons";
+import { Fragment } from "react"
+import { PenFill, TrashFill, XCircleFill } from "react-bootstrap-icons"
 
 const Task = ({
   id,
@@ -10,7 +11,7 @@ const Task = ({
   showUpdateForm,
 }) => {
   return (
-    <>
+    <Fragment>
       <div>
         <input
           checked={isCompleted}
@@ -32,8 +33,8 @@ const Task = ({
           )}
         </button>
       </div>
-    </>
-  );
-};
+    </Fragment>
+  )
+}
 
-export default Task;
+export default Task

@@ -1,13 +1,25 @@
 export const setLocalStorage = (tasks, filter) => {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-  localStorage.setItem("filter", JSON.stringify(filter));
-};
+  // Assurez-vous que localStorage est disponible et non vidé
+  if (typeof window !== "undefined" && window.localStorage) {
+    // Vérifiez si les données sont différentes avant de les enregistrer
+    const tasksData = JSON.stringify(tasks)
+    const filterData = JSON.stringify(filter)
+
+    localStorage.setItem("tasks", tasksData)
+    localStorage.setItem("filter", filterData)
+  }
+}
 
 export const getLocalStorage = () => {
-  const tasksInStorage = JSON.parse(localStorage.getItem("tasks")?.toString());
-  const filterInStorage = JSON.parse(
-    localStorage.getItem("filter")?.toString()
-  );
+  let tasksInStorage = []
+  let filterInStorage = "all"
 
-  return { tasksInStorage, filterInStorage };
-};
+  // Vérifiez la présence du localStorage
+  if (typeof window !== "undefined" && window.localStorage) {
+    // Récupérez les données avec un contrôle pour les valeurs nulles
+    tasksInStorage = JSON.parse(localStorage.getItem("tasks")) || []
+    filterInStorage = JSON.parse(localStorage.getItem("filter")) || "all"
+  }
+
+  return { tasksInStorage, filterInStorage }
+}
