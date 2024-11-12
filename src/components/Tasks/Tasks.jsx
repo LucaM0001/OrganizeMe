@@ -7,15 +7,17 @@ import { getLocalStorage, setLocalStorage } from "../../lib/storage";
 import { notification } from "../../lib/notifcation";
 
 const Tasks = (props) => {
-  const { tasksInStorage } = getLocalStorage();
-  const { filterInStorage } = getLocalStorage();
-
-  const [tasks, setTasks] = useState(tasksInStorage);
-
-  const [filter, setFilter] = useState(filterInStorage);
+  const [tasks, setTasks] = useState([]);
+  const [filter, setFilter] = useState("all");
 
   useEffect(() => {
-    setLocalStorage(tasks, filter);
+    const { tasksInStorage } = getLocalStorage();
+    const { filterInStorage } = getLocalStorage();
+
+    if (tasksInStorage && filterInStorage) 
+      setLocalStorage(tasksInStorage, filterInStorage)
+    else
+      setLocalStorage(tasks, filter);
   }, [tasks, filter]);
 
   const handleRemoveTask = (deleteId) => {
