@@ -26,8 +26,10 @@ const Tasks = () => {
 
   const handleRemoveTask = (deleteId) => {
     const newTasks = tasks.filter((task) => task.id !== deleteId)
+
     if (confirm("Delete this task ?")) {
-      setTasks(newTasks)
+      setTasks(newTasks) // Met à jour l'état des tâches
+      setLocalStorage(newTasks, filter) // Met à jour le localStorage avec la nouvelle liste de tâches
       notification("info", "The task has been deleted")
     }
   }
